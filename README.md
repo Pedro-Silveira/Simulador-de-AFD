@@ -13,11 +13,11 @@ O simulador funciona através da leitura de um arquivo ".txt" contendo as instru
 
 ### 🔩 Função lerInstrucoes()
 
-Responsável por ler todas as linhas de instruções dentro do arquivo ".txt" e inserir, através de um laço de repetição, essas instruções em um array "instrucoes".
+Responsável por ler todas as linhas de instruções dentro do arquivo ".txt" e inserir, através de um laço de repetição, essas instruções em um array _"instrucoes"_.
 
 ### 🔩 Função converter()
 
-Percorre o array de instruções procurando o símbolo "&", o que irá contestar a existência de um autômato finito não-determinístico. Caso encontre, ele irá substituir a referida linha por uma com origem igual a cada uma das letras do alfabeto, bem como o destino equivalente. Desta forma, o autômato será convertido para um autômato finito determinístico.
+Percorre o array de instruções procurando o símbolo "**&**", o que irá contestar a existência de um autômato finito não-determinístico. Caso encontre, ele irá substituir a referida linha por uma com origem igual a cada uma das letras do alfabeto, bem como o destino equivalente. Desta forma, o autômato será convertido para um autômato finito determinístico.
 
 ### 🔩 Função simulador()
 
