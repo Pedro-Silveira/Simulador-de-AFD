@@ -1,39 +1,61 @@
+# VARIÁVEIS
 automato = open("automato.txt")
-linhas = len(open("automato.txt").readlines())
+instrucoes = []
 
 inicial = automato.readline().rstrip('\n').split(" ")
 simbolos = automato.readline().rstrip('\n').split(" ")
 estados = automato.readline().rstrip('\n').split(" ")
 finais = automato.readline().rstrip('\n').split(" ")
 
-instrucoes = []
-for x in range(linhas-4):
-    instrucoes.append(automato.readline().rstrip('\n').split(" "))
 
-palavra = ""
-if linhas > 4:
+# FUNÇÃO PARA LEITURA DAS INTRUÇÕES
+def lerInstrucoes():
+    for x in range(len(open("automato.txt").readlines())-4):
+        instrucoes.append(automato.readline().rstrip('\n').split(" "))
+
+
+# FUNÇÃO PARA INICIAR O SIMULADOR
+def simulador(palavra):
+    atual = inicial[0]
+    cont = 0
+
+    situacao = True
+    for x in palavra:
+        cont = 0
+
+        for y in instrucoes:
+            if x in simbolos or x == "&":
+                if atual == y[0] and x == y[2]:
+                    atual = y[1]
+                    cont = 1
+                    break
+            else:
+                situacao = False
+                break
+
+    if situacao and cont > 0 and atual in finais:
+        print("\nPalavra aceita!")
+    else:
+        print("\nPalavra não aceita!")
+
+
+# FUNÇÃO MAIN
+def main():
+    palavra = ""
+
     while palavra != "sair":
         palavra = input("\nDigite uma palavra ou digite \"sair\" para encerrar o simulador:\n")
 
         if palavra != "sair":
-            atual = inicial[0]
+            lerInstrucoes()
 
-            situacao = True
-            for x in palavra:
-                for y in instrucoes:
-                    if x in simbolos:
-                        if atual == y[0] and x == y[2]:
-                            atual = y[1]
-                            break
-                    else:
-                        situacao = False
-                        break
-
-            if situacao and atual in finais:
-                print("\nPalavra aceita!")
+            if len(instrucoes) != 0:
+                simulador(palavra)
             else:
-                print("\nPalavra não aceita!")
-    else:
-        print("\nO simulador foi encerrado!")
-else:
-    print("\nNão há registros suficientes para iniciar o simulador!")
+                print("\nNão há registros suficientes para iniciar o simulador!")
+        else:
+            print("\nO simulador foi encerrado!")
+
+
+if __name__ == "__main__":
+    main()
