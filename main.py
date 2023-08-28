@@ -14,6 +14,25 @@ def lerInstrucoes():
         instrucoes.append(automato.readline().rstrip('\n').split(" "))
 
 
+# FUNÇÃO QUE CONVERTE AFN PARA AFD
+def converter():
+    convertido = False
+
+    for x in instrucoes:
+        if x[2] == "&":
+            convertido = True
+
+            for y in simbolos:
+                instrucoes.insert(instrucoes.index(x), [x[0], x[1], y])
+
+            instrucoes.pop(instrucoes.index(x))
+
+    if convertido:
+        print("\nO autômato foi convertido com sucesso.\n", instrucoes)
+    else:
+        print("\nO autômato já é finito determinístico.")
+
+
 # FUNÇÃO PARA INICIAR O SIMULADOR
 def simulador(palavra):
     atual = inicial[0]
@@ -43,12 +62,14 @@ def simulador(palavra):
 def main():
     palavra = ""
 
-    while palavra != "sair":
-        palavra = input("\nDigite uma palavra ou digite \"sair\" para encerrar o simulador:\n")
+    while palavra.lower() != "sair":
+        palavra = input("\nDigite uma palavra para simular, \"converter\" para converter de AFN para AFD ou digite \"sair\" para encerrar o simulador:\n")
 
-        if palavra != "sair":
-            lerInstrucoes()
+        lerInstrucoes()
 
+        if palavra.lower() == "converter":
+            converter()
+        elif palavra.lower() != "sair":
             if len(instrucoes) != 0:
                 simulador(palavra)
             else:
